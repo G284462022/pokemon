@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="waza.js" defer></script>
+    <script src="poke.js" defer></script>
+    <script src="kougekiPoke_siraberu.js" defer></script>
+    <script src="bougyoPoke_siraberu.js" defer></script>
+    <script src="特性.js" defer></script>
+    <script src="pokemon.js" defer></script>
+    <script src="statusCalculation.js" defer></script>
+    <script src="damageCalculation.js" defer></script>
+    <link rel="stylesheet" href="pokemon.css">
+</head>
+<body>
+    <div id="home">
+        <button onclick="statusMove()">ステータス</button>
+        <button onclick="damageMove()">ダメージ計算</button>
+    </div>
+
+    <div id="status">
+        <h3>ステータス</h3>
+        <div id="調べるポケ">
+            ポケモン:<input name="調べるポケ" list="リスト調べるポケ" onchange="statusCalculation()">
+            <datalist id="リスト調べるポケ"></datalist>
+            <button onclick="modoru()">戻る</button>
+        </div>
+        <div class="poke_URL" hidden>
+            ○URLは<a class="poke_URL">こちら</a>
+        </div>
+
+        <br>
+
+        <div id="syuzokuti" hidden>
+            ○種族値:<span class="種族値">108</span>-<span class="種族値">130</span>-<span class="種族値">95</span>-<span class="種族値">80</span>-<span class="種族値">85</span>-<span class="種族値">102</span>
+        </div>
+
+        </br>
+
+        <div id="調べる実数値">
+            <table id="実数値テーブル" hidden>
+                <tr id="th">
+                    <th></th>
+                    <th>最速</th>
+                    <th>準速</th>
+                    <th>無振</th>
+                    <th>下降</th>
+                    <th>最低</th>
+                </tr>
+                <tr id="td">
+                    <td id="table-S">S</td>
+                    <td>169</td>
+                    <td>154</td>
+                    <td>122</td>
+                    <td>110</td>
+                    <td>96</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="すばやさ計算" hidden>
+            <button onclick="Scalc_start()" id="Scalc">すばやさ計算</button>
+            <button onclick="Scalc_back()" id="Scalc_back" hidden>閉じる</button>
+            <div id="すばやさ計算_メイン" hidden>
+                個体値<input name="個体値" size="2">
+                努力値<input name="努力値" size="3">
+                性格補正<input name="性格補正" size="3">
+                能力変化<input name="能力変化" size="2">
+                アイテムによる補正<input name="アイテム" size="3">
+                その他補正①<input name="その他1" size="3">
+                その他補正②<input name="その他2" size="3">
+                <br>
+                <button onclick="Scalc()">計算</button>
+                <div id="計算結果" hidden>
+                    計算結果:<span id="表示"></span>(最速<span id="最速抜き"></span>族抜き,準速<span id="準速抜き"></span>族抜き)
+                </div>
+            </div>
+        </div>
+
+        </br>
+
+        <div id="特性" hidden>
+            ○通常特性<span class="通常特性"></span><div class="通常特性"></div>
+            ○夢特性<span class="夢特性"></span><div class="夢特性"></div>
+        </div>
+        <br>
+
+        <div id="覚える技" hidden>
+            ○覚える技
+            <div id="覚える技リスト">
+                <div></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="damageCalculation">
+        <h3>ダメージ計算</h3>
+        攻:<input type="textbox" name="攻撃ポケ" list="攻撃ポケ" onchange="kougekiPoke_siraberu()">
+        <datalist id="攻撃ポケ"></datalist>
+        <div id="kougeki">
+            特性:<span class="特性"></span><select class="特性">----</select>
+            性格補正:<span class="性格補正"></span>
+                <select class="性格補正">
+                    <option value="1.0">1.0倍</option>
+                    <option value="1.1">1.1倍</option>
+                    <option value="0.9">0.9倍</option>
+                </select>
+            努力値:A<span class="努力値A"></span><input type="textbox" name="努力値A" size="3" value="0">C<span class="努力値C"></span><input type="textbox" name="努力値C" size="3" value="0">
+            持ち物:<span class="持ち物"></span><input type="textbox" class="持ち物">
+            能力変化:<span class="能力変化"></span><input type="textbox" class="能力変化" size="2">
+            <br>
+            技:<span class="技"></span><select class="技">----</select>
+        </div>
+
+        <br>
+
+        防:<input type="textbox" name="防御ポケ" list="防御ポケ" onchange="bougyoPoke_siraberu()">
+        <datalist id="防御ポケ"></datalist>
+        <div id="bougyo">
+            特性:<span class="特性"></span><select class="特性">----</select>
+            性格補正:<span class="性格補正"></span>
+                <select class="性格補正">
+                    <option value="1.0">1.0倍</option>
+                    <option value="1.1">1.1倍</option>
+                    <option value="0.9">0.9倍</option>
+                </select>
+            努力値:H<span class="努力値H"></span><input type="textbox" name="努力値H" size="3" value="0">B<span class="努力値B"></span><input type="textbox" name="努力値B" size="3" value="0">D<span class="努力値D"></span><input type="textbox" name="努力値D" size="3" value="0">
+            持ち物:<span class="持ち物"></span><input type="textbox" class="持ち物">
+            能力変化:<span class="能力変化"></span><input type="textbox" class="能力変化" size="2">
+        </div>
+
+        <br>
+
+        <div id="kannkyou">
+            天候:<span class="天候"></span>
+                <select class="天候">
+                    <option value="普通">普通</option>
+                    <option value="晴れ">晴れ</option>
+                    <option value="雨">雨</option>
+                    <option value="すなあらし">すなあらし</option>
+                    <option value="あられ">あられ</option>
+                    <option value="ゆき">ゆき</option>
+                </select>
+            フィールド:<span class="フィールド"></span>
+                <select class="フィールド">
+                    <option value="普通">普通</option>
+                    <option value="エレキ">エレキフィールド</option>
+                    <option value="サイコ">サイコフィールド</option>
+                    <option value="ミスト">ミストフィールド</option>
+                    <option value="グラス">グラスフィールド</option>
+                </select>
+        </div>
+
+        <br>
+
+        <button onclick="damageCalculation()">計算</button>
+        <button onclick="modoru()">戻る</button>
+    </div>
+</body>
+</html>

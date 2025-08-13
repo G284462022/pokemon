@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightsOut</title>
+    <link rel="stylesheet" href="LightsOut.css">
+</head>
+    <div id="main">
+        <select onchange="levelChange()" id="level">
+            <option value="3">Lv.1</option>
+            <option value="4">LV.2</option>
+            <option value="5">Lv.3</option>
+        </select>
+        <button id="random" onclick="start()">スタート</button>
+        <button id="block" onclick="block()">ブロックを配置</button>
+
+        <table border="1" id="table">
+            <tr class="gyou">
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+            </tr>
+            <tr class="gyou">
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+            </tr>
+            <tr class="gyou">
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+                <td><input type="checkbox" class="checks"></td>
+            </tr>
+        </table>
+
+
+        <div class="score" id="score"></div>
+
+    </div>
+
+        <div class="lookRank" id="lookRank"><button onclick="lookRanking()">ランキングを見る</button></div>
+        <div class="lookMain" id="lookMain"><button onclick="lookMaining()">戻る</button></div>
+
+
+    <div id="rank">
+        <h3 id="x*x">3×3のランキング</h3>
+        <table id="rankingTable">
+            <tr>
+              <td class="rank">１位</td>
+              <td class="name" id= "name_1">no data</td>
+              <td id= "score_1">-</td>
+            </tr>
+            <tr>
+              <td class="rank">２位</td>
+              <td class="name" id = "name_2">no data</td>
+              <td id = "score_2">-</td>
+            </tr>
+            <tr>
+              <td class="rank">３位</td>
+              <td class="name" id = "name_3">no data</td>
+              <td id = "score_3">-</td>
+            </tr>
+            <tr>
+              <td class="rank">４位</td>
+              <td class="name" id = "name_4">no data</td>
+              <td id = "score_4">-</td>
+            </tr>
+            <tr>
+              <td class="rank">５位</td>
+              <td class="name" id = "name_5">no data</td>
+              <td id = "score_5">-</td>
+            </tr>
+          </table>
+    </div>
+
+    <script src="LightsOut.js"></script>
+</body>
+</html>
