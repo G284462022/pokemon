@@ -12,6 +12,9 @@ function statusCalculation(){
     let Scalc = document.getElementById("すばやさ計算");
     Scalc.style.display = "block";
 
+    let HP_ad = document.getElementById("体力調整");
+    HP_ad.style.display = "block";
+
     let tokusei_div = document.getElementById("特性");
     tokusei_div.style.display = "block";
 
@@ -46,6 +49,7 @@ function statusCalculation(){
 
     for(let P in poke_data){
         if(poke_data[P].name === poke){
+            //attackPokeにデータを送信
             attackPoke = poke_data[P];
             //URL
             url.setAttribute("href", attackPoke.site);
@@ -175,6 +179,52 @@ function Scalc(){
     keisan.style.display = "block";
 }
 
+function HP_adjustment(){
+    let span_kekka = document.getElementById("体力調整_結果");
+    span_kekka.style.display = "block";
+
+    let flag = document.getElementById("flag");
+    flag = flag.value;
+
+    let select = document.getElementById("select");
+    select = select.value;
+
+    let Poke_HP_max = parseInt((attackPoke.status[0] * 2  + 31 + 63) * 0.5) + 60;
+    let Poke_HP_min = parseInt((attackPoke.status[0] * 2  + 31 + 0) * 0.5) + 60;
+
+    if(flag === "0"){
+        A = HP_calc0(select, Poke_HP_max, Poke_HP_min);
+    }else if(flag === "1"){
+        A = HP_calc1(select, Poke_HP_min, Poke_HP_max);
+    }
+    let div_hp = document.querySelector("div#体力調整_結果 > span#hphp");
+    div_hp.textContent = A;
+
+    if(A != null){
+        A = ((A - 60) * 2 - attackPoke.status[0] * 2 - 31) * 4;
+    }
+    let div_doryokuti = document.querySelector("div#体力調整_結果 > span#doryoku");
+    div_doryokuti.textContent = A;
+}
+
+function HP_adjustment_start(){
+    let btn_HP_ad_st = document.getElementById("HP_adjustment_start");
+    btn_HP_ad_st.style.display = "none";
+    let btn_HP_ad_ba = document.getElementById("HP_adjustment_back");
+    btn_HP_ad_ba.style.display = "block";
+    let div_tairyokumain = document.getElementById("体力調整_メイン");
+    div_tairyokumain.style.display = "block";
+}
+
+function HP_adjustment_back(){
+    let btn_HP_ad_st = document.getElementById("HP_adjustment_start");
+    btn_HP_ad_st.style.display = "block";
+    let btn_HP_ad_ba = document.getElementById("HP_adjustment_back");
+    btn_HP_ad_ba.style.display = "none";
+    let div_tairyokumain = document.getElementById("体力調整_メイン");
+    div_tairyokumain.style.display = "none";
+}
+
 function Skeisann(syu, kotai, doryo, sei){
     return (parseInt(((syu * 2 + kotai + parseInt(doryo / 4)) * 0.5 + 5) * sei));
 }
@@ -198,4 +248,74 @@ function Skeisann_gyakusann(s, A){
             break;
     }
     return result;
+}
+
+function HP_calc0(select, HP, HP_min){
+    if(HP < HP_min) return null;
+   
+    switch(select){
+        case "191":
+            if(HP === 191) return HP;
+            break;
+        case "16n-1":
+            if(HP % 16 === 15) return HP;
+            break;
+        case "16n+1":
+            if(HP % 16 === 1) return HP;
+            break;
+        case "16n":
+            if(HP % 16 === 0) return HP;
+            break;
+        case "10n-1":
+            if(HP % 10 === 9) return HP;
+            break;
+        case "4n+1":
+            if(HP % 4 === 1) return HP;
+            break;
+        case "4n":
+            if(HP % 4 === 0) return HP;
+            break;
+        case "2n":
+            if(HP % 2 === 0) return HP;
+            break;
+        case "2n+1":
+            if(HP % 2 === 1) return HP;
+            break;
+    }
+    return HP_calc0(select, HP - 1, HP_min);
+}
+
+function HP_calc1(select, HP, HP_max){
+    if(HP > HP_max) return null;
+
+    switch(select){
+        case "191":
+            if(HP === 191) return HP;
+            break;
+        case "16n-1":
+            if(HP % 16 === 15) return HP;
+            break;
+        case "16n+1":
+            if(HP % 16 === 1) return HP;
+            break;
+        case "16n":
+            if(HP % 16 === 0) return HP;
+            break;
+        case "10n-1":
+            if(HP % 10 === 9) return HP;
+            break;
+        case "4n+1":
+            if(HP % 4 === 1) return HP;
+            break;
+        case "4n":
+            if(HP % 4 === 0) return HP;
+            break;
+        case "2n":
+            if(HP % 2 === 0) return HP;
+            break;
+        case "2n+1":
+            if(HP % 2 === 1) return HP;
+            break;
+    }
+    return HP_calc0(select, HP + 1, HP_max);
 }

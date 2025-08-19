@@ -79,6 +79,36 @@
             </div>
         </div>
 
+        <div id="体力調整" hidden>
+            <button id="HP_adjustment_start" onclick="HP_adjustment_start()">体力調整</button>
+            <button id="HP_adjustment_back" onclick="HP_adjustment_back()" hidden>閉じる</button>
+            <div id="体力調整_メイン" hidden>
+                <div>
+                    調整
+                    <select id="flag">
+                        <option value="0">最大</option>
+                        <option value="1">最低</option>
+                    </select>
+                    <select id="select">
+                        <option value="2n+1">2n+1</option>
+                        <option value="2n">2n</option>
+                        <option value="4n">4n</option>
+                        <option value="4n+1">4n+1</option>
+                        <option value="10n-1">10n-1</option>
+                        <option value="16n">16n</option>
+                        <option value="16n+1">16n+1</option>
+                        <option value="16n-1">16n-1</option>
+                        <option value="191">191</option>
+                    </select>
+                    <div id="体力調整_結果" hidden>
+                        HP:<span id="hphp"></span>
+                        努力値:<span id="doryoku"></span>
+                    </div>
+                </div>
+                <button onclick="HP_adjustment()">計算</button>
+            </div>
+        </div>
+
         </br>
 
         <div id="特性" hidden>
